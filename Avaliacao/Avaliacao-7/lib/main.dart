@@ -13,12 +13,25 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: PaginaInicial(),
+      home: PaginaInicialComContador(),
     );
   }
 }
 
-class PaginaInicial extends StatelessWidget {
+class PaginaInicialComContador extends StatefulWidget {
+  @override
+  _PaginaInicialComContadorState createState() => _PaginaInicialComContadorState();
+}
+
+class _PaginaInicialComContadorState extends State<PaginaInicialComContador> {
+  int _contador = 0;
+
+  void _incrementarContador() {
+    setState(() {
+      _contador++;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,10 +40,23 @@ class PaginaInicial extends StatelessWidget {
       ),
       drawer: NavegacaoDrawer(),
       body: Center(
-        child: Text(
-          'Bem-vindo à Página Inicial! app por Jonas Silva Freitas e Enzo Gabriel Rodrigues Belmino Moreira',
-          style: TextStyle(fontSize: 18),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Contador de Enzo Gabriel e Jonas Freitas:',
+              style: TextStyle(fontSize: 18),
+            ),
+            Text(
+              '$_contador',
+              style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+            ),
+          ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementarContador,
+        child: Icon(Icons.add),
       ),
     );
   }
@@ -97,7 +123,7 @@ class NavegacaoDrawer extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => PaginaInicial()),
+                MaterialPageRoute(builder: (context) => PaginaInicialComContador()),
               );
             },
           ),
